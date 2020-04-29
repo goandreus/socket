@@ -5,15 +5,14 @@ import 'package:flutter/services.dart';
 import 'package:socket/widgets/circle.dart';
 import 'package:socket/widgets/input_text..dart';
 
-class LoginPage extends StatefulWidget {
-  LoginPage({Key key}) : super(key: key);
+class SignUpPage extends StatefulWidget {
+  SignUpPage({Key key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _SignUpPageState createState() => _SignUpPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-
+class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -106,6 +105,18 @@ class _LoginPageState extends State<LoginPage> {
                                 child: Column(
                                   children: <Widget>[
                                     InputText(
+                                      label: "USERNAME",
+                                      validaor: (String text) {
+                                        if (RegExp(r'^[a-zA-Z0-9]+$').hasMatch(text)) {
+                                          return null;
+                                        }
+                                        return "invalid Username";
+                                      },
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    InputText(
                                       inputType: TextInputType.emailAddress,
                                       label: "MAIL ADDRESS",
                                       validaor: (String text) {
@@ -116,7 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                                       },
                                     ),
                                     SizedBox(
-                                      height: 30,
+                                      height: 20,
                                     ),
                                     InputText(
                                       isSecure: true,
@@ -145,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
                                 borderRadius: BorderRadius.circular(5),
                                 onPressed: () => _submit(),
                                 child: Text(
-                                  'Sign In',
+                                  'Sign up',
                                   style: TextStyle(fontSize: 20),
                                 ),
                               ),
@@ -157,17 +168,17 @@ class _LoginPageState extends State<LoginPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  'lorem lorem lorem',
+                                  'Already have an account?',
                                   style: TextStyle(
                                       fontSize: 16, color: Colors.black54),
                                 ),
                                 CupertinoButton(
                                   child: Text(
-                                    'Sign Up',
+                                    'Sign In',
                                     style: TextStyle(
                                         fontSize: 16, color: Colors.pinkAccent),
                                   ),
-                                  onPressed: () => Navigator.pushNamed(context, "signup"),
+                                  onPressed: () => Navigator.pop(context),
                                 ),
                               ],
                             ),
@@ -179,6 +190,21 @@ class _LoginPageState extends State<LoginPage> {
                       ],
                     ),
                   ),
+                ),
+              ),
+              Positioned(
+                left: 15,
+                top: 5,
+                child: SafeArea(
+                  child: CupertinoButton(
+                      padding: EdgeInsets.all(10),
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.black12,
+                      onPressed: () => Navigator.pop(context),
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                      )),
                 ),
               )
             ],
