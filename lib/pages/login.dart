@@ -106,6 +106,7 @@ class _LoginPageState extends State<LoginPage> {
                                 child: Column(
                                   children: <Widget>[
                                     InputText(
+                                      inputType: TextInputType.emailAddress,
                                       label: "MAIL ADDRESS",
                                       validaor: (String text) {
                                         if (text.contains('@')) {
