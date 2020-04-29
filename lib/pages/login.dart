@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:socket/widgets/circle.dart';
 import 'package:socket/widgets/input_text..dart';
 
@@ -12,12 +13,26 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+  }
+
+  _submit() {
+    _formKey.currentState.validate();
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: GestureDetector(
-        onTap: (){
+        onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
         },
         child: Container(
@@ -86,18 +101,35 @@ class _LoginPageState extends State<LoginPage> {
                             ConstrainedBox(
                               constraints:
                                   BoxConstraints(maxWidth: 350, minWidth: 350),
-                              child: Column(
-                                children: <Widget>[
-                                  InputText(
-                                    label: "MAIL ADDRESS",
-                                  ),
-                                  SizedBox(
-                                    height: 30,
-                                  ),
-                                  InputText(
-                                    label: "PASSWORD",
-                                  ),
-                                ],
+                              child: Form(
+                                key: _formKey,
+                                child: Column(
+                                  children: <Widget>[
+                                    InputText(
+                                      label: "MAIL ADDRESS",
+                                      validaor: (String text) {
+                                        if (text.contains('@')) {
+                                          return null;
+                                        }
+                                        return "invalid Email";
+                                      },
+                                    ),
+                                    SizedBox(
+                                      height: 30,
+                                    ),
+                                    InputText(
+                                      isSecure: true,
+                                      label: "PASSWORD",
+                                      validaor: (String text) {
+                                        if (text.isNotEmpty &&
+                                            text.length > 5) {
+                                          return null;
+                                        }
+                                        return "invalid password";
+                                      },
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                             SizedBox(
@@ -110,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                                 padding: EdgeInsets.symmetric(vertical: 17),
                                 color: Colors.pinkAccent,
                                 borderRadius: BorderRadius.circular(5),
-                                onPressed: () {},
+                                onPressed: () => _submit(),
                                 child: Text(
                                   'Button',
                                   style: TextStyle(fontSize: 20),
@@ -138,6 +170,9 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ],
                             ),
+                            SizedBox(
+                              height: size.height * 0.08,
+                            )
                           ],
                         ),
                       ],
