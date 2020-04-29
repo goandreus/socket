@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:socket/api/auth_api.dart';
 import 'package:socket/widgets/circle.dart';
 import 'package:socket/widgets/input_text..dart';
 
@@ -15,6 +16,9 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
 
+  final _authAPI = AuthAPI();
+  var _username = '', _email= '', _password='';
+
   @override
   void initState() {
     super.initState();
@@ -22,8 +26,15 @@ class _SignUpPageState extends State<SignUpPage> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
   }
 
-  _submit() {
+  _submit() async {
+    final isValid =
     _formKey.currentState.validate();
+    if(isValid){
+     final isOk = await _authAPI.register(username:_username,email: _email,password: _password);
+     if(isOk){
+       print('Register');
+     }
+    }
   }
 
   @override
@@ -108,6 +119,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                       label: "USERNAME",
                                       validaor: (String text) {
                                         if (RegExp(r'^[a-zA-Z0-9]+$').hasMatch(text)) {
+                                          _username=text;
                                           return null;
                                         }
                                         return "invalid Username";
@@ -121,6 +133,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                       label: "MAIL ADDRESS",
                                       validaor: (String text) {
                                         if (text.contains('@')) {
+                                          _email=text;
                                           return null;
                                         }
                                         return "invalid Email";
@@ -135,6 +148,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                       validaor: (String text) {
                                         if (text.isNotEmpty &&
                                             text.length > 5) {
+                                              _password = text;
                                           return null;
                                         }
                                         return "invalid password";
