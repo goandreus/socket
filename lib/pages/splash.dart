@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:socket/utils/session.dart';
+import 'package:socket/api/auth_api.dart';
 
 class SplashPage extends StatefulWidget {
   SplashPage({Key key}) : super(key: key);
@@ -11,8 +11,7 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
 
-  final _session = Session();
-
+  final _authAPI = AuthAPI();
   @override
   void initState() {
     super.initState();
@@ -20,8 +19,9 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   check()async{
-    final data = await _session.get();
-    if(data != null){
+    final token = await _authAPI.getAccessToken();
+
+    if(token != null){
       Navigator.pushReplacementNamed(context, 'home');
     }
     else{
