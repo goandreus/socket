@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:socket/api/auth_api.dart';
 import 'package:socket/widgets/circle.dart';
 import 'package:socket/widgets/input_text..dart';
 
@@ -14,6 +15,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
+  var _email= '', _password='';
+  final _authAPI = AuthAPI();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -23,8 +26,14 @@ class _LoginPageState extends State<LoginPage> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
   }
 
-  _submit() {
-    _formKey.currentState.validate();
+  _submit() async {
+  final isValid = _formKey.currentState.validate();
+  if(isValid){
+    final isOk = await _authAPI.login(context, email: _email, password: _password);
+    if(isOk){
+      print('Login Ok');
+    }
+  }
   }
 
   @override
@@ -110,6 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                                       label: "MAIL ADDRESS",
                                       validaor: (String text) {
                                         if (text.contains('@')) {
+                                          _email=text;
                                           return null;
                                         }
                                         return "invalid Email";
@@ -124,6 +134,7 @@ class _LoginPageState extends State<LoginPage> {
                                       validaor: (String text) {
                                         if (text.isNotEmpty &&
                                             text.length > 5) {
+                                              _password=text;
                                           return null;
                                         }
                                         return "invalid password";
