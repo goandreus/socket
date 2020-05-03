@@ -18,6 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   var _email= '', _password='';
   final _authAPI = AuthAPI();
   final _formKey = GlobalKey<FormState>();
+  var _isFetching = false;
 
   @override
   void initState() {
@@ -27,9 +28,18 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _submit() async {
+
+   if(_isFetching) return;  
+
   final isValid = _formKey.currentState.validate();
   if(isValid){
+    setState(() {
+      _isFetching = true;
+    });
     final isOk = await _authAPI.login(context, email: _email, password: _password);
+    setState(() {
+      _isFetching = false;
+    });
     if(isOk){
       print('Login Ok');
     }
@@ -191,7 +201,13 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-              )
+              ),
+             _isFetching? Positioned.fill(child: Container(
+                color: Colors.black45,
+                child: Center(
+                  child: CupertinoActivityIndicator(radius: 15,)
+                ),
+              ),):Container()
             ],
           ),
         ),
