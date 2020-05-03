@@ -3,11 +3,15 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart' show required;
-import 'package:socket/utrils/dialogs.dart';
+import 'package:socket/utils/dialogs.dart';
 import '../app_config.dart';
 import 'package:http/http.dart' as http;
+import 'package:socket/utils/session.dart';
 
 class AuthAPI{
+
+  final _session = Session();
+
   Future<bool> register(BuildContext context,{@required String username, @required String email, @required String password}) async {
     final url = "${AppConfig.apiHost}/register";
 
@@ -28,6 +32,8 @@ class AuthAPI{
      print("response 200 ${response.body}");
 
      //save token
+
+     await _session.set(token, expiresIn);
 
      return true;
     }
@@ -62,6 +68,8 @@ class AuthAPI{
      print("response 200 ${response.body}");
 
      //save token
+
+     await _session.set(token, expiresIn);
 
      return true;
     }

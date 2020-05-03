@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:socket/pages/home.dart';
 import 'package:socket/pages/login.dart';
 import 'package:socket/pages/sign_up.dart';
+import 'package:socket/pages/splash.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,10 +17,12 @@ class MyApp extends StatelessWidget {
       
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
+      home: SplashPage(),
       routes: {
         'login' : (context)=>LoginPage(),
         'signup': (context)=>SignUpPage(),
+        'home'  : (context)=>HomePapge(),
+        
       },
     );
   }

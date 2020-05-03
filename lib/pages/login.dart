@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:socket/api/auth_api.dart';
+import 'package:socket/pages/home.dart';
 import 'package:socket/widgets/circle.dart';
 import 'package:socket/widgets/input_text..dart';
 
@@ -42,6 +43,7 @@ class _LoginPageState extends State<LoginPage> {
     });
     if(isOk){
       print('Login Ok');
+      Navigator.pushNamed(context, 'home');
     }
   }
   }
