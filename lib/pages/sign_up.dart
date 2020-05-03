@@ -30,7 +30,7 @@ class _SignUpPageState extends State<SignUpPage> {
     final isValid =
     _formKey.currentState.validate();
     if(isValid){
-     final isOk = await _authAPI.register(username:_username,email: _email,password: _password);
+     final isOk = await _authAPI.register(context, username:_username,email: _email,password: _password);
      if(isOk){
        print('Register');
      }

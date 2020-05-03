@@ -1,12 +1,14 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart' show required;
+import 'package:socket/utrils/dialogs.dart';
 import '../app_config.dart';
 import 'package:http/http.dart' as http;
 
 class AuthAPI{
-  Future<bool> register({@required String username, @required String email, @required String password}) async {
+  Future<bool> register(BuildContext context,{@required String username, @required String email, @required String password}) async {
     final url = "${AppConfig.apiHost}/register";
 
     try{
@@ -36,6 +38,7 @@ class AuthAPI{
 
     }on PlatformException catch(e){
       print("Error ${e.code}:${e.message}");
+      Dialogs.alert(context, title: "Error", message: e.message);
       return false;
     }
   }
