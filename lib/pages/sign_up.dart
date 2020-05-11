@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:socket/api/auth_api.dart';
+import 'package:socket/utils/responsive.dart';
 import 'package:socket/widgets/circle.dart';
 import 'package:socket/widgets/input_text..dart';
 
@@ -47,6 +48,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
+    final responsive = Responsive(context);
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: GestureDetector(
@@ -91,8 +93,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         Column(
                           children: <Widget>[
                             Container(
-                              width: 90,
-                              height: 90,
+                              width: responsive.wp(20),
+                              height: responsive.hp(20),
                               margin: EdgeInsets.only(top: size.width * 0.3),
                               //color: Colors.white,
                               decoration: BoxDecoration(
@@ -104,13 +106,13 @@ class _SignUpPageState extends State<SignUpPage> {
                                   ]),
                             ),
                             SizedBox(
-                              height: 20,
+                              height: responsive.hp(3),
                             ),
                             Text(
                               'hello hello \n hello hello',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w300),
+                                  fontSize: responsive.ip(1.9), fontWeight: FontWeight.w300),
                             )
                           ],
                         ),
@@ -125,6 +127,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   children: <Widget>[
                                     InputText(
                                       label: "USERNAME",
+                                      fontSize: responsive.ip(1.8),
                                       validaor: (String text) {
                                         if (RegExp(r'^[a-zA-Z0-9]+$').hasMatch(text)) {
                                           _username=text;
@@ -134,11 +137,12 @@ class _SignUpPageState extends State<SignUpPage> {
                                       },
                                     ),
                                     SizedBox(
-                                      height: 20,
+                                      height: responsive.hp(1.5),
                                     ),
                                     InputText(
                                       inputType: TextInputType.emailAddress,
                                       label: "MAIL ADDRESS",
+                                      fontSize: responsive.ip(1.8),
                                       validaor: (String text) {
                                         if (text.contains('@')) {
                                           _email=text;
@@ -148,11 +152,12 @@ class _SignUpPageState extends State<SignUpPage> {
                                       },
                                     ),
                                     SizedBox(
-                                      height: 20,
+                                      height: responsive.hp(1.5),
                                     ),
                                     InputText(
                                       isSecure: true,
                                       label: "PASSWORD",
+                                      fontSize: responsive.ip(1.8),
                                       validaor: (String text) {
                                         if (text.isNotEmpty &&
                                             text.length > 5) {
@@ -167,24 +172,24 @@ class _SignUpPageState extends State<SignUpPage> {
                               ),
                             ),
                             SizedBox(
-                              height: 40,
+                              height: responsive.ip(5),
                             ),
                             ConstrainedBox(
                               constraints:
                                   BoxConstraints(maxWidth: 350, minWidth: 350),
                               child: CupertinoButton(
-                                padding: EdgeInsets.symmetric(vertical: 17),
+                                padding: EdgeInsets.symmetric(vertical: responsive.hp(1.9)),
                                 color: Colors.pinkAccent,
                                 borderRadius: BorderRadius.circular(5),
                                 onPressed: () => _submit(),
                                 child: Text(
                                   'Sign up',
-                                  style: TextStyle(fontSize: 20),
+                                  style: TextStyle(fontSize: responsive.hp(1.9),),
                                 ),
                               ),
                             ),
                             SizedBox(
-                              height: 20,
+                              height: responsive.hp(2),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -192,21 +197,18 @@ class _SignUpPageState extends State<SignUpPage> {
                                 Text(
                                   'Already have an account?',
                                   style: TextStyle(
-                                      fontSize: 16, color: Colors.black54),
+                                      fontSize: responsive.ip(1.7), color: Colors.black54),
                                 ),
                                 CupertinoButton(
                                   child: Text(
                                     'Sign In',
                                     style: TextStyle(
-                                        fontSize: 16, color: Colors.pinkAccent),
+                                        fontSize: responsive.ip(1.7), color: Colors.pinkAccent),
                                   ),
                                   onPressed: () => Navigator.pop(context),
                                 ),
                               ],
                             ),
-                            SizedBox(
-                              height: size.height * 0.08,
-                            )
                           ],
                         ),
                       ],

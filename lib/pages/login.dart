@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:socket/api/auth_api.dart';
 import 'package:socket/pages/home.dart';
+import 'package:socket/utils/responsive.dart';
 import 'package:socket/widgets/circle.dart';
 import 'package:socket/widgets/input_text..dart';
 
@@ -50,6 +51,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final responsive = Responsive(context);
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: GestureDetector(
@@ -94,8 +96,8 @@ class _LoginPageState extends State<LoginPage> {
                         Column(
                           children: <Widget>[
                             Container(
-                              width: 90,
-                              height: 90,
+                              width: responsive.wp(25),
+                              height: responsive.hp(25),
                               margin: EdgeInsets.only(top: size.width * 0.3),
                               //color: Colors.white,
                               decoration: BoxDecoration(
@@ -107,13 +109,13 @@ class _LoginPageState extends State<LoginPage> {
                                   ]),
                             ),
                             SizedBox(
-                              height: 20,
+                              height: responsive.hp(4),
                             ),
                             Text(
                               'hello hello \n hello hello',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w300),
+                                  fontSize: responsive.ip(2), fontWeight: FontWeight.w300),
                             )
                           ],
                         ),
@@ -128,6 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                                   children: <Widget>[
                                     InputText(
                                       inputType: TextInputType.emailAddress,
+                                      fontSize: responsive.ip(1.8),
                                       label: "MAIL ADDRESS",
                                       validaor: (String text) {
                                         if (text.contains('@')) {
@@ -138,10 +141,11 @@ class _LoginPageState extends State<LoginPage> {
                                       },
                                     ),
                                     SizedBox(
-                                      height: 30,
+                                      height: responsive.hp(3),
                                     ),
                                     InputText(
                                       isSecure: true,
+                                      fontSize: responsive.ip(1.8),
                                       label: "PASSWORD",
                                       validaor: (String text) {
                                         if (text.isNotEmpty &&
@@ -157,24 +161,24 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                             SizedBox(
-                              height: 40,
+                              height: responsive.hp(4),
                             ),
                             ConstrainedBox(
                               constraints:
                                   BoxConstraints(maxWidth: 350, minWidth: 350),
                               child: CupertinoButton(
-                                padding: EdgeInsets.symmetric(vertical: 17),
+                                padding: EdgeInsets.symmetric(vertical: responsive.ip(2)),
                                 color: Colors.pinkAccent,
                                 borderRadius: BorderRadius.circular(5),
                                 onPressed: () => _submit(),
                                 child: Text(
                                   'Sign In',
-                                  style: TextStyle(fontSize: 20),
+                                  style: TextStyle(fontSize: responsive.ip(2.5)),
                                 ),
                               ),
                             ),
                             SizedBox(
-                              height: 20,
+                              height: responsive.hp(5),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -182,20 +186,20 @@ class _LoginPageState extends State<LoginPage> {
                                 Text(
                                   'lorem lorem lorem',
                                   style: TextStyle(
-                                      fontSize: 16, color: Colors.black54),
+                                      fontSize: responsive.ip(1.8), color: Colors.black54),
                                 ),
                                 CupertinoButton(
                                   child: Text(
                                     'Sign Up',
                                     style: TextStyle(
-                                        fontSize: 16, color: Colors.pinkAccent),
+                                        fontSize: responsive.ip(1.8), color: Colors.pinkAccent),
                                   ),
                                   onPressed: () => Navigator.pushNamed(context, "signup"),
                                 ),
                               ],
                             ),
                             SizedBox(
-                              height: size.height * 0.08,
+                              height: responsive.hp(1),
                             )
                           ],
                         ),
