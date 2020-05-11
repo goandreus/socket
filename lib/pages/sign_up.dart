@@ -94,7 +94,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           children: <Widget>[
                             Container(
                               width: responsive.wp(20),
-                              height: responsive.hp(20),
+                              height: responsive.wp(20),
                               margin: EdgeInsets.only(top: size.width * 0.3),
                               //color: Colors.white,
                               decoration: BoxDecoration(

@@ -97,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                           children: <Widget>[
                             Container(
                               width: responsive.wp(25),
-                              height: responsive.hp(25),
+                              height: responsive.wp(25),
                               margin: EdgeInsets.only(top: size.width * 0.3),
                               //color: Colors.white,
                               decoration: BoxDecoration(
