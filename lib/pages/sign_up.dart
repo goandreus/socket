@@ -20,7 +20,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final _authAPI = AuthAPI();
   var _username = '', _email= '', _password='';
   var _isFetching = false;
-
+ 
   @override
   void initState() {
     super.initState();
@@ -41,7 +41,7 @@ class _SignUpPageState extends State<SignUpPage> {
        _isFetching = false;
      });
      if(isOk){
-       print('Register');
+       print('Registe');
      }
     }
   }
